@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { AppContainer, ChatContainer, HeaderChat, LogoHeader, ButtonSignOut,  TitleHeader } from './App-styled';
+import SignIn from './signIn/signIn';
+import { ChatRoom } from './chatRoom/chatRoom';
+
+firebase.initializeApp({
+  apiKey: "AIzaSyAoAfFRQiVIgSfxb3YY8_2GTYRk_Pj0-5g",
+  authDomain: "real-time-chat-7037d.firebaseapp.com",
+  databaseURL: "https://real-time-chat-7037d.firebaseio.com",
+  projectId: "real-time-chat-7037d",
+  storageBucket: "real-time-chat-7037d.appspot.com",
+  messagingSenderId: "213810322920",
+  appId: "1:213810322920:web:635ac304015063c468585d",
+  measurementId: "G-YC9RKBXVBQ"
+})
+
+const auth = firebase.auth();
+const firestore = firebase.firestore();
 
 function App() {
+
+  const [user] = useAuthState(auth);
+  console.log(user);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <ChatContainer>
+        <HeaderChat>
+          <LogoHeader />
+          {user ? <ButtonSignOut onClick={() => auth.signOut()}>
+                      Sign Out
+                  </ButtonSignOut>
+                : <TitleHeader>
+                    1 Bc Esen
+                  </TitleHeader>
+        }
+          
+        </HeaderChat>
+        {user ? <ChatRoom firestore={firestore} auth={auth}/> : <SignIn auth={auth} />}
+      </ChatContainer>
+    </AppContainer>
   );
 }
+
 
 export default App;
