@@ -1,6 +1,5 @@
-import  React, { useState }  from 'react';
+import  React from 'react';
 import { MessageReceived, MessageContainer, PhotoUser, MessageSent } from "./message-styled"
-import { firebase } from 'firebase/app';
 
 
 

@@ -4,7 +4,6 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { AppContainer, ChatContainer, HeaderChat, LogoHeader, ButtonSignOut,  TitleHeader } from './App-styled';
 import SignIn from './signIn/signIn';
 import { ChatRoom } from './chatRoom/chatRoom';
